@@ -85,6 +85,10 @@ class HashMap:
 
     # ------------------------------------------------------------------ #
 
+
+    # Quadratic probing can be done without any multiplication apparently
+    # Load factor threshold in this one is 0.5 (remember to throw out tombstones on resize)
+
     def put(self, key: str, value: object) -> None:
         """
         TODO: Write this implementation
@@ -149,6 +153,7 @@ class HashMap:
         """
         TODO: Write this implementation
         """
+        # Remember to skip None and __TS__ values
         pass
 
 
