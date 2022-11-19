@@ -150,7 +150,7 @@ class HashMap:
 
         tempDynamicArray = DynamicArray()
         # Store current Hash Table contents in a temporary dynamic array
-        for element in range(self._buckets.length()-1):
+        for element in range(self._buckets.length()):
             if self._buckets[element].length() != 0:
                 # If there is something at index, go through the LL
                 for node in self._buckets[element]:
