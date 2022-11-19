@@ -162,23 +162,25 @@ class HashMap:
         else:
             prime_capacity = new_capacity
 
+        # Store current Hash Table contents in a temporary dynamic array
         tempDynamicArray = DynamicArray()
-
         for element in range(self._buckets.length()-1):
-
             if self._buckets[element].length() != 0:
                 # If there is something at index, go through the LL
                 for node in self._buckets[element]:
                     tempDynamicArray.append(node)
 
         self.clear()
- 
+
+        print(prime_capacity)
+        for _ in range(prime_capacity - self._capacity):
+            self._buckets.append(LinkedList())
         self._capacity = prime_capacity
         # self._size = 0
         for index in range(tempDynamicArray.length()):
             self.put(tempDynamicArray[index].key, tempDynamicArray[index].value)
                 
-        print(self.get_size())
+        # print(self.get_size())
         print(self)
         
     def get(self, key: str):
