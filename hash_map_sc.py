@@ -139,7 +139,7 @@ class HashMap:
                 # If there is something at index, add the LL length to numElements
                 numElements += self._buckets[element].length()
         
-        return numElements/numBuckets
+        return float(numElements/numBuckets)
 
 
     def clear(self) -> None:
