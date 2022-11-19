@@ -174,7 +174,7 @@ class HashMap:
         Returns the value associated with the parameter key.
         """
         # Returns the value with the given key
-        for element in range(self._buckets.length()-1):
+        for element in range(self._buckets.length()):
             if self._buckets[element]:
                 # If there is something at index, go through the LL
                 if self._buckets[element].contains(key):
