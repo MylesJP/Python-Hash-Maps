@@ -100,7 +100,7 @@ class HashMap:
         hashIndex = hash_function_1(key) % self._capacity
 
         # Resize the HashTable if load >= 1
-        print(self.table_load())
+        # print(self.table_load())
         if self.table_load() >= 1:
             self.resize_table(self._next_prime(self._capacity*2))
         # Insert into the front of the LL returned at the hashIndex bucket
