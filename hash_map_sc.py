@@ -141,7 +141,6 @@ class HashMap:
         """
         Resizes the HashMap to the next prime number.
         """
-        # Something wrong with this method not assigning values right
         if new_capacity < 1 or new_capacity == self._capacity:
             return
         if not self._is_prime(new_capacity):
@@ -149,8 +148,8 @@ class HashMap:
         else:
             prime_capacity = new_capacity
 
-        # Store current Hash Table contents in a temporary dynamic array
         tempDynamicArray = DynamicArray()
+        # Store current Hash Table contents in a temporary dynamic array
         for element in range(self._buckets.length()-1):
             if self._buckets[element].length() != 0:
                 # If there is something at index, go through the LL
@@ -160,15 +159,14 @@ class HashMap:
         # Clear the existing contents from the Hash Table
         self.clear()
 
-        # Add the appropriate number of new entries to the Hash Table
+        # Add the appropriate number of buckets to the Hash Table
         for _ in range(prime_capacity - self._capacity):
             self._buckets.append(LinkedList())
-        self._capacity = prime_capacity
+        self._capacity = prime_capacity  # Now table should be at correct cap.
 
         # Rehash the values from tempDynamicArray to self._buckets
         for index in range(tempDynamicArray.length()):
             self.put(tempDynamicArray[index].key, tempDynamicArray[index].value)
-
 
 
     def get(self, key: str):
@@ -285,16 +283,16 @@ if __name__ == "__main__":
     #     if i % 10 == 0:
     #         print(round(m.table_load(), 2), m.get_size(), m.get_capacity())
 
-    print("\nPDF - clear example 1")
-    print("---------------------")
-    m = HashMap(101, hash_function_1)
-    print(m.get_size(), m.get_capacity())
-    m.put('key1', 10)
-    m.put('key2', 20)
-    m.put('key1', 30)
-    print(m.get_size(), m.get_capacity())
-    m.clear()
-    print(m.get_size(), m.get_capacity())
+    # print("\nPDF - clear example 1")
+    # print("---------------------")
+    # m = HashMap(101, hash_function_1)
+    # print(m.get_size(), m.get_capacity())
+    # m.put('key1', 10)
+    # m.put('key2', 20)
+    # m.put('key1', 30)
+    # print(m.get_size(), m.get_capacity())
+    # m.clear()
+    # print(m.get_size(), m.get_capacity())
     # print("\nPDF - clear example 2")
     # print("---------------------")
     # m = HashMap(53, hash_function_1)
@@ -308,14 +306,17 @@ if __name__ == "__main__":
     # m.clear()
     # print(m.get_size(), m.get_capacity())
 
-    # print("\nPDF - resize example 1")
-    # print("----------------------")
-    # m = HashMap(23, hash_function_1)
-    # m.put('key1', 10)
-    # print(m.get_size(), m.get_capacity(), m.get('key1'), m.contains_key('key1'))
-    # m.resize_table(23)
-    # print(m.get_size(), m.get_capacity(), m.get('key1'), m.contains_key('key1'))
-    # print(m)
+    print("\nPDF - resize example 1")
+    print("----------------------")
+    m = HashMap(23, hash_function_1)
+    m.put('key1', 10)
+    m.put('key2', 20)
+    m.put('key3', 50)
+    m.put('key4', 20)
+    print(m.get_size(), m.get_capacity(), m.get('key1'), m.contains_key('key1'))
+    m.resize_table(29)
+    print(m.get_size(), m.get_capacity(), m.get('key1'), m.contains_key('key1'))
+    print(m)
 
     # print("\nPDF - resize example 2")
     # print("----------------------")
