@@ -97,20 +97,19 @@ class HashMap:
         """
         # Key is there or it isn't, if it's there, replace, if not, insert a new key:value pair
         # Keep load factor < 1, if it grows, resize and rehash everything
-        hashIndex = hash_function_1(key) % self._capacity
 
         # Resize the HashTable if load >= 1
-        # print(self.table_load())
+        print(self.table_load())
         if self.table_load() >= 1:
             self.resize_table(self._next_prime(self._capacity*2))
         # Insert into the front of the LL returned at the hashIndex bucket
-        # Need logic to overwrite value if already existing
-        if self._buckets.get_at_index(hashIndex).contains(key):
+        hashIndex = hash_function_1(key) % self._capacity
+        if self._buckets[hashIndex].contains(key):
             # Overwrite old value
-            self._buckets.get_at_index(hashIndex).contains(key).value = value
+            self._buckets[hashIndex].contains(key).value = value
         else:
             # Create new value
-            self._buckets.get_at_index(hashIndex).insert(key, value)
+            self._buckets[hashIndex].insert(key, value)
             self._size += 1
 
 
@@ -124,6 +123,7 @@ class HashMap:
             if self._buckets[element].length() == 0:
                 count += 1
         return count
+
 
     def table_load(self) -> float:
         """
@@ -139,7 +139,7 @@ class HashMap:
                 # If there is something at index, add the LL length to numElements
                 numElements += self._buckets[element].length()
         
-        return numElements/numBuckets
+        return round(numElements/numBuckets, 2)
 
 
     def clear(self) -> None:
@@ -148,15 +148,20 @@ class HashMap:
         capacity.
         """
         # Clear the hashmap without creating a new one.
+        # for element in range(self._capacity):
+        #     if self._buckets[element].length() > 0:
+        #         self._buckets[element] = LinkedList()
+        # self._size = 0
+
         for element in range(self._capacity):
-            if self._buckets[element].length() > 0:
-                self._buckets[element] = LinkedList()
-        self._size = 0
+            self._buckets[element] = LinkedList()
 
     def resize_table(self, new_capacity: int) -> None:
         """
         Resizes the HashMap to the next prime number.
         """
+        print("did resize")
+        print("new capacity", new_capacity)
         if new_capacity == 1:
             return
         if not self._is_prime(new_capacity):
@@ -227,13 +232,14 @@ def find_mode(da: DynamicArray):
 
 if __name__ == "__main__": 
     
-    # print("\nPDF - put example 1")
-    # print("-------------------")
-    # m = HashMap(53, hash_function_1)
-    # for i in range(150):
-    #     m.put('str' + str(i), i * 100)
-    #     if i % 25 == 24:
-    #         print(m.empty_buckets(), round(m.table_load(), 2), m.get_size(), m.get_capacity())
+    print("\nPDF - put example 1")
+    print("-------------------")
+    m = HashMap(53, hash_function_1)
+    for i in range(150):
+        m.put('str' + str(i), i * 100)
+        if i % 25 == 24:
+            print(m.empty_buckets(), round(m.table_load(), 2), m.get_size(), m.get_capacity())
+    print(m)
     
     # print("\nPDF - put example 1")
     # print("-------------------")
@@ -292,16 +298,16 @@ if __name__ == "__main__":
     #     if i % 10 == 0:
     #         print(round(m.table_load(), 2), m.get_size(), m.get_capacity())
 
-    print("\nPDF - clear example 1")
-    print("---------------------")
-    m = HashMap(101, hash_function_1)
-    print(m.get_size(), m.get_capacity())
-    m.put('key1', 10)
-    m.put('key2', 20)
-    m.put('key1', 30)
-    print(m.get_size(), m.get_capacity())
-    m.clear()
-    print(m.get_size(), m.get_capacity())
+    # print("\nPDF - clear example 1")
+    # print("---------------------")
+    # m = HashMap(101, hash_function_1)
+    # print(m.get_size(), m.get_capacity())
+    # m.put('key1', 10)
+    # m.put('key2', 20)
+    # m.put('key1', 30)
+    # print(m.get_size(), m.get_capacity())
+    # m.clear()
+    # print(m.get_size(), m.get_capacity())
 
     # print("\nPDF - clear example 2")
     # print("---------------------")
