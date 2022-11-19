@@ -155,7 +155,7 @@ class HashMap:
         Resizes the HashMap to the next prime number.
         """
         # Something wrong with this method not assigning values right
-        if new_capacity < 1:
+        if new_capacity < 1 or new_capacity == self._capacity:
             return
         if not self._is_prime(new_capacity):
             prime_capacity = self._next_prime(new_capacity)
@@ -170,19 +170,21 @@ class HashMap:
                 for node in self._buckets[element]:
                     tempDynamicArray.append(node)
 
+        # Clear the existing contents from the Hash Table
         self.clear()
 
-        print(prime_capacity)
+        # Add the appropriate number of new entries to the Hash Table
         for _ in range(prime_capacity - self._capacity):
             self._buckets.append(LinkedList())
         self._capacity = prime_capacity
-        # self._size = 0
+
+        # Rehash the values from tempDynamicArray to self._buckets
         for index in range(tempDynamicArray.length()):
             self.put(tempDynamicArray[index].key, tempDynamicArray[index].value)
                 
-        # print(self.get_size())
         print(self)
-        
+
+
     def get(self, key: str):
         """
         TODO: Write this implementation
@@ -326,9 +328,9 @@ if __name__ == "__main__":
     m = HashMap(23, hash_function_1)
     m.put('key1', 10)
     print(m.get_size(), m.get_capacity(), m.get('key1'), m.contains_key('key1'))
-    m.resize_table(30)
+    m.resize_table(23)
     print(m.get_size(), m.get_capacity(), m.get('key1'), m.contains_key('key1'))
-
+    print(m)
     # print("\nPDF - resize example 2")
     # print("----------------------")
     # m = HashMap(79, hash_function_2)
