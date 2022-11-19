@@ -95,9 +95,6 @@ class HashMap:
         Updates the key:val pair in the HashMap, inserting a new entry if not
         present. Also resizes the HashMap when load factor = 1.
         """
-        # Key is there or it isn't, if it's there, replace, if not, insert a new key:value pair
-        # Keep load factor < 1, if it grows, resize and rehash everything
-
         # Resize the HashTable if load >= 1
         if self.table_load() >= 1:
             self.resize_table(self._next_prime(self._capacity*2))
@@ -129,7 +126,6 @@ class HashMap:
         Returns the table load of the Hash Table.
         """
         # Load factor is #elements / #buckets
-
         return float(self._size/self._capacity)
 
 
@@ -179,7 +175,7 @@ class HashMap:
 
     def get(self, key: str):
         """
-        TODO: Write this implementation
+        Returns the value associated with the parameter key.
         """
         # Returns the value with the given key
         for element in range(self._buckets.length()-1):
@@ -272,16 +268,16 @@ if __name__ == "__main__":
     #     if i % 30 == 0:
     #         print(m.empty_buckets(), m.get_size(), m.get_capacity())
 
-    print("\nPDF - table_load example 1")
-    print("--------------------------")
-    m = HashMap(101, hash_function_1)
-    print(round(m.table_load(), 2))
-    m.put('key1', 10)
-    print(round(m.table_load(), 2))
-    m.put('key2', 20)
-    print(round(m.table_load(), 2))
-    m.put('key1', 30)
-    print(round(m.table_load(), 2))
+    # print("\nPDF - table_load example 1")
+    # print("--------------------------")
+    # m = HashMap(101, hash_function_1)
+    # print(round(m.table_load(), 2))
+    # m.put('key1', 10)
+    # print(round(m.table_load(), 2))
+    # m.put('key2', 20)
+    # print(round(m.table_load(), 2))
+    # m.put('key1', 30)
+    # print(round(m.table_load(), 2))
 
     # print("\nPDF - table_load example 2")
     # print("--------------------------")
@@ -345,12 +341,14 @@ if __name__ == "__main__":
     #         result &= not m.contains_key(str(key + 1))
     #     print(capacity, result, m.get_size(), m.get_capacity(), round(m.table_load(), 2))
 
-    # print("\nPDF - get example 1")
-    # print("-------------------")
-    # m = HashMap(31, hash_function_1)
-    # print(m.get('key'))
-    # m.put('key1', 10)
-    # print(m.get('key1'))
+    print("\nPDF - get example 1")
+    print("-------------------")
+    m = HashMap(31, hash_function_1)
+    print(m.get('key'))
+    print(m)
+    m.put('key1', 10)
+    print(m.get('key1'))
+    print(m)
 
     # print("\nPDF - get example 2")
     # print("-------------------")
