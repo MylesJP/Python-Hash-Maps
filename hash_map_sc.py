@@ -99,7 +99,6 @@ class HashMap:
         # Keep load factor < 1, if it grows, resize and rehash everything
 
         # Resize the HashTable if load >= 1
-        print(self.table_load())
         if self.table_load() >= 1:
             self.resize_table(self._next_prime(self._capacity*2))
         # Insert into the front of the LL returned at the hashIndex bucket
