@@ -99,7 +99,7 @@ class HashMap:
         if self.table_load() >= 1:
             self.resize_table(self._next_prime(self._capacity*2))
         # Insert into the front of the LL returned at the hashIndex bucket
-        hashIndex = hash_function_1(key) % self._capacity
+        hashIndex = self._hash_function(key) % self._capacity
         if self._buckets[hashIndex].contains(key):
             # Overwrite old value
             self._buckets[hashIndex].contains(key).value = value
