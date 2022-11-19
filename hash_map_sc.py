@@ -149,7 +149,8 @@ class HashMap:
         """
         # Clear the hashmap without creating a new one.
         for element in range(self._capacity):
-            self._buckets[element] = LinkedList()
+            if self._buckets[element].length() > 0:
+                self._buckets[element] = LinkedList()
         self._size = 0
 
     def resize_table(self, new_capacity: int) -> None:
