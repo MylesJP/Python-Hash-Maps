@@ -88,8 +88,6 @@ class HashMap:
 
     # ------------------------------------------------------------------ #
 
-    # Single Chaining HashMap is a dynamic array of SLLs
-
     def put(self, key: str, value: object) -> None:
         """
         Updates the key:val pair in the HashMap, inserting a new entry if not
@@ -115,7 +113,7 @@ class HashMap:
         """
         count = 0
         # Count of empty buckets
-        for index in range(0, self.get_capacity()):
+        for index in range(self.get_capacity()):
             if self._buckets[index].length() == 0:
                 count += 1
         return count
@@ -137,6 +135,7 @@ class HashMap:
         for index in range(self._capacity):
             self._buckets[index] = LinkedList()
         self._size = 0
+
 
     def resize_table(self, new_capacity: int) -> None:
         """
@@ -169,8 +168,7 @@ class HashMap:
         # Rehash the values from tempDynamicArray to self._buckets
         for index in range(tempDynamicArray.length()):
             self.put(tempDynamicArray[index].key, tempDynamicArray[index].value)
-                
-        print(self)
+
 
 
     def get(self, key: str):
@@ -287,17 +285,16 @@ if __name__ == "__main__":
     #     if i % 10 == 0:
     #         print(round(m.table_load(), 2), m.get_size(), m.get_capacity())
 
-    # print("\nPDF - clear example 1")
-    # print("---------------------")
-    # m = HashMap(101, hash_function_1)
-    # print(m.get_size(), m.get_capacity())
-    # m.put('key1', 10)
-    # m.put('key2', 20)
-    # m.put('key1', 30)
-    # print(m.get_size(), m.get_capacity())
-    # m.clear()
-    # print(m.get_size(), m.get_capacity())
-
+    print("\nPDF - clear example 1")
+    print("---------------------")
+    m = HashMap(101, hash_function_1)
+    print(m.get_size(), m.get_capacity())
+    m.put('key1', 10)
+    m.put('key2', 20)
+    m.put('key1', 30)
+    print(m.get_size(), m.get_capacity())
+    m.clear()
+    print(m.get_size(), m.get_capacity())
     # print("\nPDF - clear example 2")
     # print("---------------------")
     # m = HashMap(53, hash_function_1)
@@ -319,6 +316,7 @@ if __name__ == "__main__":
     # m.resize_table(23)
     # print(m.get_size(), m.get_capacity(), m.get('key1'), m.contains_key('key1'))
     # print(m)
+
     # print("\nPDF - resize example 2")
     # print("----------------------")
     # m = HashMap(79, hash_function_2)
@@ -341,14 +339,14 @@ if __name__ == "__main__":
     #         result &= not m.contains_key(str(key + 1))
     #     print(capacity, result, m.get_size(), m.get_capacity(), round(m.table_load(), 2))
 
-    print("\nPDF - get example 1")
-    print("-------------------")
-    m = HashMap(31, hash_function_1)
-    print(m.get('key'))
-    print(m)
-    m.put('key1', 10)
-    print(m.get('key1'))
-    print(m)
+    # print("\nPDF - get example 1")
+    # print("-------------------")
+    # m = HashMap(31, hash_function_1)
+    # print(m.get('key'))
+    # print(m)
+    # m.put('key1', 10)
+    # print(m.get('key1'))
+    # print(m)
 
     # print("\nPDF - get example 2")
     # print("-------------------")
