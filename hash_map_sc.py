@@ -118,8 +118,8 @@ class HashMap:
         """
         count = 0
         # Count of empty buckets
-        for element in range(self.get_capacity()):
-            if self._buckets[element].length() == 0:
+        for index in range(0, self.get_capacity()):
+            if self._buckets[index].length() == 0:
                 count += 1
         return count
 
@@ -146,13 +146,7 @@ class HashMap:
         Clears the contents of the current Hash Table without affecting the 
         capacity.
         """
-        # Clear the hashmap without creating a new one.
-        # for element in range(self._capacity):
-        #     if self._buckets[element].length() > 0:
-        #         self._buckets[element] = LinkedList()
-        # self._size = 0
-
-        for element in range(self._capacity):
+        for _ in range(self._capacity):
             self._buckets.append(LinkedList())
         self._size = 0
 
@@ -160,8 +154,6 @@ class HashMap:
         """
         Resizes the HashMap to the next prime number.
         """
-        print("did resize")
-        print("new capacity", new_capacity)
         if new_capacity == 1:
             return
         if not self._is_prime(new_capacity):
@@ -172,7 +164,7 @@ class HashMap:
         tempDynamicArray = DynamicArray()
 
         for element in range(self._buckets.length()-1):
-            if self._buckets[element]:
+            if self._buckets[element].length() != 0:
                 # If there is something at index, go through the LL
                 for node in self._buckets[element]:
                     tempDynamicArray.append(node)
@@ -180,7 +172,8 @@ class HashMap:
         self._capacity = prime_capacity
         # self._size = tempDynamicArray.length()
         self = HashMap(prime_capacity, self._hash_function)       
-        for index in range(0, tempDynamicArray.length()):
+        self._size = 0
+        for index in range(tempDynamicArray.length()):
             self.put(tempDynamicArray[index].key, tempDynamicArray[index].value)
                 
         
@@ -232,14 +225,14 @@ def find_mode(da: DynamicArray):
 
 if __name__ == "__main__": 
     
-    print("\nPDF - put example 1")
-    print("-------------------")
-    m = HashMap(53, hash_function_1)
-    for i in range(150):
-        m.put('str' + str(i), i * 100)
-        if i % 25 == 24:
-            print(m.empty_buckets(), round(m.table_load(), 2), m.get_size(), m.get_capacity())
-    print(m)
+    # print("\nPDF - put example 1")
+    # print("-------------------")
+    # m = HashMap(53, hash_function_1)
+    # for i in range(150):
+    #     m.put('str' + str(i), i * 100)
+    #     if i % 25 == 24:
+    #         print(m.empty_buckets(), round(m.table_load(), 2), m.get_size(), m.get_capacity())
+    # print(m)
     
     # print("\nPDF - put example 1")
     # print("-------------------")
@@ -322,14 +315,13 @@ if __name__ == "__main__":
     # m.clear()
     # print(m.get_size(), m.get_capacity())
 
-    # print("\nPDF - resize example 1")
-    # print("----------------------")
-    # m = HashMap(23, hash_function_1)
-    # m.put('key1', 10)
-    # print(m.get_size(), m.get_capacity(), m.get('key1'), m.contains_key('key1'))
-    # m.put('key2', 20)
-    # m.resize_table(41)
-    # print(m.get_size(), m.get_capacity(), m.get('key1'), m.contains_key('key1'))
+    print("\nPDF - resize example 1")
+    print("----------------------")
+    m = HashMap(23, hash_function_1)
+    m.put('key1', 10)
+    print(m.get_size(), m.get_capacity(), m.get('key1'), m.contains_key('key1'))
+    m.resize_table(30)
+    print(m.get_size(), m.get_capacity(), m.get('key1'), m.contains_key('key1'))
 
     # print("\nPDF - resize example 2")
     # print("----------------------")
