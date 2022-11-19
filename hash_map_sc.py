@@ -104,14 +104,20 @@ class HashMap:
             self.resize_table(self._next_prime(self._capacity*2))
         # Insert into the front of the LL returned at the hashIndex bucket
         # Need logic to overwrite value if already existing
-        self._buckets.get_at_index(hashIndex).insert(key, value)
+        if self._buckets.get_at_index(hashIndex).contains(key):
+            # Overwrite old value
+            self._buckets.get_at_index(hashIndex).contains(key).value = value
+        else:
+            # Create new value
+            self._buckets.get_at_index(hashIndex).insert(key, value)
+            self._size += 1
 
 
     def empty_buckets(self) -> int:
         """
         TODO: Write this implementation
         """
-        # Cound of empty buckets
+        # Count of empty buckets
         ...
 
     def table_load(self) -> float:
@@ -135,28 +141,52 @@ class HashMap:
         TODO: Write this implementation
         """
         # Clear the hashmap
-        pass
+        self = HashMap()
 
     def resize_table(self, new_capacity: int) -> None:
         """
         Resizes the HashMap to the next prime number.
         """
-        # Changes capacity of internal hash table (make sure it's a prime number)
-        pass
+        if new_capacity == 1:
+            return
+        if not self._is_prime(new_capacity):
+            prime_capacity = self._next_prime(new_capacity)
+        else:
+            prime_capacity = new_capacity
 
+        tempDynamicArray = DynamicArray()
+
+        for element in range(self._buckets.length()-1):
+            if self._buckets[element]:
+                # If there is something at index, go through the LL
+                for node in self._buckets[element]:
+                    tempDynamicArray.append(node)
+                    
+        self._capacity = prime_capacity
+        self = HashMap(prime_capacity, self._hash_function)       
+        for index in range(0, tempDynamicArray.length()):
+            self.put(tempDynamicArray[index].key, tempDynamicArray[index].value)
+                
+        
     def get(self, key: str):
         """
         TODO: Write this implementation
         """
         # Returns the value with the given key
-        pass
+        for element in range(self._buckets.length()-1):
+            if self._buckets[element]:
+                # If there is something at index, go through the LL
+                if self._buckets[element].contains(key):
+                    return self._buckets[element].contains(key).value
+
 
     def contains_key(self, key: str) -> bool:
         """
-        TODO: Write this implementation
+        Returns True if the HashTable contains key, else, False.
         """
-        # Not returning anything, just T/F
-        pass
+        if self.get(key):
+            return True
+        return False
 
     def remove(self, key: str) -> None:
         """
@@ -186,13 +216,13 @@ def find_mode(da: DynamicArray):
 
 if __name__ == "__main__": 
     
-    print("\nPDF - put example 1")
-    print("-------------------")
-    m = HashMap(53, hash_function_1)
-    for i in range(150):
-        m.put('str' + str(i), i * 100)
-        if i % 25 == 24:
-            print(m.empty_buckets(), round(m.table_load(), 2), m.get_size(), m.get_capacity())
+    # print("\nPDF - put example 1")
+    # print("-------------------")
+    # m = HashMap(53, hash_function_1)
+    # for i in range(150):
+    #     m.put('str' + str(i), i * 100)
+    #     if i % 25 == 24:
+    #         print(m.empty_buckets(), round(m.table_load(), 2), m.get_size(), m.get_capacity())
     
     # print("\nPDF - put example 1")
     # print("-------------------")
@@ -275,35 +305,35 @@ if __name__ == "__main__":
     # m.clear()
     # print(m.get_size(), m.get_capacity())
 
-    # print("\nPDF - resize example 1")
-    # print("----------------------")
-    # m = HashMap(23, hash_function_1)
-    # m.put('key1', 10)
-    # print(m.get_size(), m.get_capacity(), m.get('key1'), m.contains_key('key1'))
-    # m.resize_table(30)
-    # print(m.get_size(), m.get_capacity(), m.get('key1'), m.contains_key('key1'))
+    print("\nPDF - resize example 1")
+    print("----------------------")
+    m = HashMap(23, hash_function_1)
+    m.put('key1', 10)
+    print(m.get_size(), m.get_capacity(), m.get('key1'), m.contains_key('key1'))
+    m.resize_table(30)
+    print(m.get_size(), m.get_capacity(), m.get('key1'), m.contains_key('key1'))
 
-    # print("\nPDF - resize example 2")
-    # print("----------------------")
-    # m = HashMap(79, hash_function_2)
-    # keys = [i for i in range(1, 1000, 13)]
-    # for key in keys:
-    #     m.put(str(key), key * 42)
-    # print(m.get_size(), m.get_capacity())
+    print("\nPDF - resize example 2")
+    print("----------------------")
+    m = HashMap(79, hash_function_2)
+    keys = [i for i in range(1, 1000, 13)]
+    for key in keys:
+        m.put(str(key), key * 42)
+    print(m.get_size(), m.get_capacity())
 
-    # for capacity in range(111, 1000, 117):
-    #     m.resize_table(capacity)
+    for capacity in range(111, 1000, 117):
+        m.resize_table(capacity)
 
-    #     m.put('some key', 'some value')
-    #     result = m.contains_key('some key')
-    #     m.remove('some key')
+        m.put('some key', 'some value')
+        result = m.contains_key('some key')
+        m.remove('some key')
 
-    #     for key in keys:
-    #         # all inserted keys must be present
-    #         result &= m.contains_key(str(key))
-    #         # NOT inserted keys must be absent
-    #         result &= not m.contains_key(str(key + 1))
-    #     print(capacity, result, m.get_size(), m.get_capacity(), round(m.table_load(), 2))
+        for key in keys:
+            # all inserted keys must be present
+            result &= m.contains_key(str(key))
+            # NOT inserted keys must be absent
+            result &= not m.contains_key(str(key + 1))
+        print(capacity, result, m.get_size(), m.get_capacity(), round(m.table_load(), 2))
 
     # print("\nPDF - get example 1")
     # print("-------------------")
