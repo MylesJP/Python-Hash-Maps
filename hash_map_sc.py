@@ -141,16 +141,18 @@ class HashMap:
         """
         Resizes the HashMap to the next prime number.
         """
+        # If resize is 0 or the same as current capacity, do nothing
         if new_capacity < 1 or new_capacity == self._capacity:
             return
 
+        # If new_capacity isn't prime, adjust up to next prime
         if not self._is_prime(new_capacity):
             prime_capacity = self._next_prime(new_capacity)
         else:
             prime_capacity = new_capacity
 
-        tempDynamicArray = DynamicArray()
         # Store current Hash Table contents in a temporary dynamic array
+        tempDynamicArray = DynamicArray()
         for element in range(self._buckets.length()):
             if self._buckets[element].length() != 0:
                 # If there is something at index, go through the LL
@@ -161,9 +163,10 @@ class HashMap:
         self.clear()
 
         # Add the appropriate number of buckets to the Hash Table
-        for _ in range(prime_capacity - self._capacity):
+        self._capacity = prime_capacity
+        self._buckets = DynamicArray()
+        for _ in range(self._capacity):
             self._buckets.append(LinkedList())
-        self._capacity = prime_capacity  # Now table should be at correct cap.
 
         # Rehash the values from tempDynamicArray to self._buckets
         for index in range(tempDynamicArray.length()):
@@ -320,9 +323,11 @@ if __name__ == "__main__":
     m.put('key666', 83)
     m.put('key232', 103)
     m.put('key94', -795)
+    m.put('key95', -795)
+    m.put('key96', -795)
     # print(m.get_size(), m.get_capacity(), m.get('key1'), m.contains_key('key1'))
-    print(m.get_size(), m.get_capacity())
     print(m)
+    print(m.get_size(), m.get_capacity())
 
     # print("\nPDF - resize example 2")
     # print("----------------------")
