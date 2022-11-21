@@ -97,16 +97,18 @@ class HashMap:
         if self.table_load() >= 0.5:
             self.resize_table(self._next_prime(self._capacity*2))
         
-        hashIndex = self._hash_function(key) % self._capacity
+        initialIndex = self._hash_function(key) % self._capacity
         counter = 0
-        j = 1
-
+        j = 0
+        hashIndex = initialIndex
+        
         while self._buckets[hashIndex] and counter < self.get_capacity():
-            hashIndex = ((hashIndex + j**2) % self.get_capacity())
             j += 1
+            hashIndex = (initialIndex + j**2) % self.get_capacity()
             # For avoiding infinite loops during debugging
             counter += 1
-        self._buckets[hashIndex] = HashEntry(key, value)
+
+        self._buckets[(initialIndex + j**2) % self.get_capacity()] = HashEntry(key, value)
         self._size += 1
 
 
