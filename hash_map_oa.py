@@ -96,6 +96,7 @@ class HashMap:
         # Resize the HashTable if load >= 0.2
         if self.table_load() >= 0.5:
             self.resize_table(self._next_prime(self._capacity*2))
+        
         hashIndex = self._hash_function(key) % self._capacity
         counter = 0
         j = 1
@@ -143,14 +144,14 @@ class HashMap:
                 tempArray.append(self._buckets[entry])
 
         self.clear()
-        print("cleared", self)
         # Increase the size of the Hash Table to prime_capacity
-        self._capacity = prime_capacity
-        for _ in range(prime_capacity - self._capacity):
+        for _ in range(prime_capacity - self.get_capacity()):
             self._buckets.append(None)
 
+        self._capacity = prime_capacity
         for item in range(tempArray.length()):
             self.put(tempArray[item].key, tempArray[item].value)
+
 
     def get(self, key: str) -> object:
         """
@@ -208,8 +209,6 @@ if __name__ == "__main__":
     m = HashMap(5, hash_function_1)
     for i in range(4):
         m.put('str' + str(i), i * 100)
-        if i % 25 == 24:
-            print(m.empty_buckets(), round(m.table_load(), 2), m.get_size(), m.get_capacity())
     print(m)
 
     # print("\nPDF - put example 2")
