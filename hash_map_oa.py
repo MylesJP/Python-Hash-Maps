@@ -103,11 +103,11 @@ class HashMap:
 
         while self._buckets[hashIndex] and counter < self.get_capacity():
             hashIndex = ((hashIndex + j**2) % self.get_capacity())
+            j += 1
             # For avoiding infinite loops during debugging
             counter += 1
         self._buckets[hashIndex] = HashEntry(key, value)
         self._size += 1
-        j = 1
 
 
     def table_load(self) -> float:
@@ -206,9 +206,11 @@ if __name__ == "__main__":
 
     print("\nPDF - put example 1")
     print("-------------------")
-    m = HashMap(5, hash_function_1)
-    for i in range(4):
+    m = HashMap(53, hash_function_1)
+    for i in range(14):
         m.put('str' + str(i), i * 100)
+    print(m)
+    m.put("str14", 1400)
     print(m)
 
     # print("\nPDF - put example 2")
