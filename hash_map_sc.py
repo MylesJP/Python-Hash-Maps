@@ -152,12 +152,12 @@ class HashMap:
             prime_capacity = new_capacity
 
         # Store current Hash Table contents in a temporary dynamic array
-        tempDynamicArray = DynamicArray()
+        tempArray = DynamicArray()
         for element in range(self._buckets.length()):
             if self._buckets[element].length() != 0:
                 # If there is something at index, go through the LL
                 for node in self._buckets[element]:
-                    tempDynamicArray.append(node)
+                    tempArray.append(node)
 
         # Clear the existing contents from the Hash Table
         self.clear()
@@ -169,8 +169,8 @@ class HashMap:
             self._buckets.append(LinkedList())
 
         # Rehash the values from tempDynamicArray to self._buckets
-        for index in range(tempDynamicArray.length()):
-            self.put(tempDynamicArray[index].key, tempDynamicArray[index].value)
+        for index in range(tempArray.length()):
+            self.put(tempArray[index].key, tempArray[index].value)
 
 
     def get(self, key: str):
