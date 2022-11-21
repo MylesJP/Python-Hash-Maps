@@ -101,10 +101,10 @@ class HashMap:
         counter = 0
         j = 0
         hashIndex = initialIndex
-        
-        while self._buckets[hashIndex] and counter < self.get_capacity():
+
+        while self._buckets[(hashIndex + j**2) % self.get_capacity()] and \
+            self._buckets[hashIndex].key != key and counter < self.get_capacity():
             j += 1
-            hashIndex = (initialIndex + j**2) % self.get_capacity()
             # For avoiding infinite loops during debugging
             counter += 1
 
@@ -213,6 +213,7 @@ if __name__ == "__main__":
         m.put('str' + str(i), i * 100)
     print(m)
     m.put("str14", 1400)
+    m.put("str1", 1500000)
     print(m)
 
     # print("\nPDF - put example 2")
