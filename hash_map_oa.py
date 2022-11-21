@@ -99,6 +99,7 @@ class HashMap:
         hashIndex = self._hash_function(key) % self._capacity
         counter = 0
         j = 1
+
         while self._buckets[hashIndex] and counter < self.get_capacity():
             hashIndex = ((hashIndex + j**2) % self.get_capacity())
             # For avoiding infinite loops during debugging
@@ -142,10 +143,11 @@ class HashMap:
                 tempArray.append(self._buckets[entry])
 
         self.clear()
-
+        print("cleared", self)
+        # Increase the size of the Hash Table to prime_capacity
         self._capacity = prime_capacity
-        for _ in range(self._capacity):
-            self._buckets = None
+        for _ in range(prime_capacity - self._capacity):
+            self._buckets.append(None)
 
         for item in range(tempArray.length()):
             self.put(tempArray[item].key, tempArray[item].value)
