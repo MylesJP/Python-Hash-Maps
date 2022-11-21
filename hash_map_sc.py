@@ -176,8 +176,6 @@ class HashMap:
         """
         # Returns the value with the given key
         if self._buckets[self._hash_function(key) % self._capacity].contains(key):
-            print("at index:", self._hash_function(key) % self._capacity)
-            print("value", self._buckets[self._hash_function(key) % self._capacity].contains(key).value)
             return self._buckets[self._hash_function(key) % self._capacity].contains(key).value
 
 
