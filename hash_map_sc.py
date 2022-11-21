@@ -205,7 +205,14 @@ class HashMap:
         TODO: Write this implementation
         """
         # Return a DA of tuples of key:value pairs
-        pass
+        outArray = DynamicArray()
+        
+        for element in range(self.get_capacity()):
+            if self._buckets[element].length != 0:
+                for node in self._buckets[element]:
+                    outArray.append((node.key, node.value))
+
+        return outArray
 
 
 def find_mode(da: DynamicArray):
@@ -312,22 +319,21 @@ if __name__ == "__main__":
 
     # print("\nPDF - resize example 1")
     # print("----------------------")
-    m = HashMap(1, hash_function_1)
-    m.resize_table(1)
-    m.put('key381', 1)
-    m.put('key346', 363)
-    m.put('key878', -707)
-    m.put('key651', -613)
-    m.put('key465', -645)
-    m.put('key783', -482)
-    m.put('key666', 83)
-    m.put('key232', 103)
-    m.put('key94', -795)
-    m.put('key95', -795)
-    m.put('key96', -795)
-    # print(m.get_size(), m.get_capacity(), m.get('key1'), m.contains_key('key1'))
-    print(m)
-    print(m.get_size(), m.get_capacity())
+    # m = HashMap(1, hash_function_1)
+    # m.resize_table(1)
+    # m.put('key381', 1)
+    # m.put('key346', 363)
+    # m.put('key878', -707)
+    # m.put('key651', -613)
+    # m.put('key465', -645)
+    # m.put('key783', -482)
+    # m.put('key666', 83)
+    # m.put('key232', 103)
+    # m.put('key94', -795)
+    # m.put('key95', -795)
+    # m.put('key96', -795)
+    # print(m)
+    # print(m.get_size(), m.get_capacity())
 
     # print("\nPDF - resize example 2")
     # print("----------------------")
@@ -421,17 +427,17 @@ if __name__ == "__main__":
     # print(m.get('key1'))
     # m.remove('key4')
 
-    # print("\nPDF - get_keys_and_values example 1")
-    # print("------------------------")
-    # m = HashMap(11, hash_function_2)
-    # for i in range(1, 6):
-    #     m.put(str(i), str(i * 10))
-    # print(m.get_keys_and_values())
+    print("\nPDF - get_keys_and_values example 1")
+    print("------------------------")
+    m = HashMap(11, hash_function_2)
+    for i in range(1, 6):
+        m.put(str(i), str(i * 10))
+    print(m.get_keys_and_values())
 
-    # m.put('20', '200')
-    # m.remove('1')
-    # m.resize_table(2)
-    # print(m.get_keys_and_values())
+    m.put('20', '200')
+    m.remove('1')
+    m.resize_table(2)
+    print(m.get_keys_and_values())
 
     # print("\nPDF - find_mode example 1")
     # print("-----------------------------")
