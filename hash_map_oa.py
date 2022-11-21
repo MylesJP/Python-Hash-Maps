@@ -99,8 +99,8 @@ class HashMap:
         
         initialIndex = self._hash_function(key) % self._capacity
         counter = 0
-        j = 0
         hashIndex = initialIndex
+        j = 0
 
         while self._buckets[(hashIndex + j**2) % self.get_capacity()] and \
             self._buckets[hashIndex].key != key and counter < self.get_capacity():
@@ -108,8 +108,12 @@ class HashMap:
             # For avoiding infinite loops during debugging
             counter += 1
 
-        self._buckets[(initialIndex + j**2) % self.get_capacity()] = HashEntry(key, value)
-        self._size += 1
+        # If overwriting, don't increment size
+        if self._buckets[(initialIndex + j**2) % self.get_capacity()]:
+            self._buckets[(initialIndex + j**2) % self.get_capacity()] = HashEntry(key, value)
+        else:
+            self._buckets[(initialIndex + j**2) % self.get_capacity()] = HashEntry(key, value)
+            self._size += 1
 
 
     def table_load(self) -> float:
