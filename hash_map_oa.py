@@ -166,9 +166,8 @@ class HashMap:
         """
         initialIndex = self._hash_function(key) % self.get_capacity()
         j = 0
-        while self._buckets[(initialIndex + j**2) % \
-            self.get_capacity()] is not None and self._buckets[(initialIndex + j**2) % \
-            self.get_capacity()].is_tombstone == False:
+        while self._buckets[(initialIndex + j**2) % self.get_capacity()] is not None \
+            and self._buckets[(initialIndex + j**2) % self.get_capacity()].is_tombstone == False:
             if self._buckets[(initialIndex + j**2) % self.get_capacity()].key == key:
                 return self._buckets[(initialIndex + j**2) % self.get_capacity()].value
             j += 1
