@@ -85,10 +85,6 @@ class HashMap:
 
     # ------------------------------------------------------------------ #
 
-
-    # Quadratic probing can be done without any multiplication apparently
-    # Load factor threshold in this one is 0.5 (remember to throw out tombstones on resize)
-
     def put(self, key: str, value: object) -> None:
         """
         Updates the key:val pair in the Hash Table, inserting a new entry if not
@@ -121,7 +117,7 @@ class HashMap:
         """
         Returns the current Hash Table load.
         """
-        return self.get_size() / self.get_capacity()
+        return float(self.get_size()/self.get_capacity())
 
 
     def empty_buckets(self) -> int:
