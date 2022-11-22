@@ -91,7 +91,7 @@ class HashMap:
         present. Also resizes the Hash Table when load factor = 1.
         """
         # Resize the HashTable if load >= 0.5
-        if self.table_load() >= 0.5:
+        if self.table_load() > 0.5:
             self.resize_table(self._next_prime(self._capacity*2))
         
         initialIndex = self._hash_function(key) % self._capacity
@@ -155,6 +155,7 @@ class HashMap:
         
         self._capacity = prime_capacity
 
+        # Rehash the values from tempArray to self._buckets
         for item in range(tempArray.length()):
             self.put(tempArray[item].key, tempArray[item].value)
 
