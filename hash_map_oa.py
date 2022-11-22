@@ -165,16 +165,14 @@ class HashMap:
         Returns the value for the given key if it is in the Hash Table.
         """
         initialIndex = self._hash_function(key) % self.get_capacity()
-        counter = 0
         j = 0
-        while counter <= self.get_capacity() and self._buckets[(initialIndex + j**2) % \
+        while self._buckets[(initialIndex + j**2) % \
             self.get_capacity()] is not None and self._buckets[(initialIndex + j**2) % \
             self.get_capacity()].is_tombstone == False:
             if self._buckets[(initialIndex + j**2) % self.get_capacity()].key == key:
                 return self._buckets[(initialIndex + j**2) % self.get_capacity()].value
             j += 1
-            # To prevent infinite loops during testing
-            counter += 1
+
 
 
     def contains_key(self, key: str) -> bool:
