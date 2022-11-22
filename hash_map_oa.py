@@ -103,13 +103,15 @@ class HashMap:
         j = 0
 
         while self._buckets[(hashIndex + j**2) % self.get_capacity()] and \
-            self._buckets[(hashIndex + j**2) % self.get_capacity()].key != key:
+            self._buckets[(hashIndex + j**2) % self.get_capacity()].key != key and \
+            self._buckets[(hashIndex + j**2) % self.get_capacity()].is_tombstone == False:
             j += 1
 
         # If overwriting, don't increment size
         if self._buckets[(initialIndex + j**2) % self.get_capacity()] and \
-            self._buckets[(initialIndex + j**2) % self.get_capacity()].key == key:
-            self._buckets[(initialIndex + j**2) % self.get_capacity()] = HashEntry(key, value)
+            self._buckets[(initialIndex + j**2) % self.get_capacity()].key == key and \
+            self._buckets[(hashIndex + j**2) % self.get_capacity()].is_tombstone == False:
+                self._buckets[(initialIndex + j**2) % self.get_capacity()] = HashEntry(key, value)
         else:
             self._buckets[(initialIndex + j**2) % self.get_capacity()] = HashEntry(key, value)
             self._size += 1
@@ -155,11 +157,9 @@ class HashMap:
         for _ in range(prime_capacity):
             self._buckets.append(None)
         
-
         self._capacity = prime_capacity
         for item in range(tempArray.length()):
             self.put(tempArray[item].key, tempArray[item].value)
-        self._size = tempArray.length()
 
 
     def get(self, key: str) -> object:
