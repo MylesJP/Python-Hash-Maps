@@ -124,7 +124,7 @@ class HashMap:
         Returns the table load of the Hash Table.
         """
         # Load factor is #elements / #buckets
-        return float(self._size/self._capacity)
+        return self._size/self._capacity
 
 
     def clear(self) -> None:
