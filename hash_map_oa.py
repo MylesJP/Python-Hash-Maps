@@ -131,7 +131,7 @@ class HashMap:
         """
         TODO: Write this implementation
         """
-        if new_capacity <= self.get_capacity():
+        if new_capacity == self.get_capacity() or new_capacity < 1:
             return
         
         # If new_capacity isn't prime, adjust up to next prime
@@ -160,7 +160,15 @@ class HashMap:
         """
         TODO: Write this implementation
         """
-        pass
+        initialIndex = self._hash_function(key) % self.get_capacity()
+        counter = 0
+        j = 0
+        while counter <= self.get_capacity() and self._buckets[(initialIndex + j**2) % self.get_capacity()] is not None:
+            if self._buckets[(initialIndex + j**2) % self.get_capacity()].key == key:
+                return self._buckets[(initialIndex + j**2) % self.get_capacity()].value
+            j += 1
+            # To prevent infinite loops during testing
+            counter += 1
 
     def contains_key(self, key: str) -> bool:
         """
@@ -207,16 +215,16 @@ class HashMap:
 
 if __name__ == "__main__":
 
-    print("\nPDF - put example 1")
-    print("-------------------")
-    m = HashMap(53, hash_function_1)
-    for i in range(14):
-        m.put('str' + str(i), i * 100)
-    print(m)
-    m.put("str14", 1400)
-    print(m)
-    m.put("str14", 1500)
-    print(m)
+    # print("\nPDF - put example 1")
+    # print("-------------------")
+    # m = HashMap(53, hash_function_1)
+    # for i in range(14):
+    #     m.put('str' + str(i), i * 100)
+    # print(m)
+    # m.put("str14", 1400)
+    # print(m)
+    # m.put("str14", 1500)
+    # print(m)
 
     # print("\nPDF - put example 2")
     # print("-------------------")
@@ -307,15 +315,15 @@ if __name__ == "__main__":
     # m.put('key1', 10)
     # print(m.get('key1'))
 
-    # print("\nPDF - get example 2")
-    # print("-------------------")
-    # m = HashMap(151, hash_function_2)
-    # for i in range(200, 300, 7):
-    #     m.put(str(i), i * 10)
-    # print(m.get_size(), m.get_capacity())
-    # for i in range(200, 300, 21):
-    #     print(i, m.get(str(i)), m.get(str(i)) == i * 10)
-    #     print(i + 1, m.get(str(i + 1)), m.get(str(i + 1)) == (i + 1) * 10)
+    print("\nPDF - get example 2")
+    print("-------------------")
+    m = HashMap(151, hash_function_2)
+    for i in range(200, 300, 7):
+        m.put(str(i), i * 10)
+    print(m.get_size(), m.get_capacity())
+    for i in range(200, 300, 21):
+        print(i, m.get(str(i)), m.get(str(i)) == i * 10)
+        print(i + 1, m.get(str(i + 1)), m.get(str(i + 1)) == (i + 1) * 10)
 
     # print("\nPDF - contains_key example 1")
     # print("----------------------------")
