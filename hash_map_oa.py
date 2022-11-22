@@ -165,16 +165,12 @@ class HashMap:
         Returns the value for the given key if it is in the Hash Table.
         """
         initialIndex = self._hash_function(key) % self.get_capacity()
-        counter = 0
         j = 0
-        while counter <= self.get_capacity() and self._buckets[(initialIndex + j**2) % \
-            self.get_capacity()] is not None and self._buckets[(initialIndex + j**2) % \
-            self.get_capacity()].is_tombstone == False:
+        while self._buckets[(initialIndex + j**2) % self.get_capacity()] is not None \
+            and self._buckets[(initialIndex + j**2) % self.get_capacity()].is_tombstone == False:
             if self._buckets[(initialIndex + j**2) % self.get_capacity()].key == key:
                 return self._buckets[(initialIndex + j**2) % self.get_capacity()].value
             j += 1
-            # To prevent infinite loops during testing
-            counter += 1
 
 
     def contains_key(self, key: str) -> bool:
@@ -192,18 +188,14 @@ class HashMap:
         Removes a Hash Table entry with the given key from the Hash Table.
         """
         initialIndex = self._hash_function(key) % self.get_capacity()
-        counter = 0
         j = 0
-        while counter <= self.get_capacity() and self._buckets[(initialIndex + j**2) \
-            % self.get_capacity()] is not None:
+        while self._buckets[(initialIndex + j**2) % self.get_capacity()] is not None:
             if self._buckets[(initialIndex + j**2) % self.get_capacity()].key == key and \
                 self._buckets[(initialIndex + j**2) % self.get_capacity()].is_tombstone == False:
                 self._buckets[(initialIndex + j**2) % self.get_capacity()].is_tombstone = True
                 self._size -= 1
                 break
             j += 1
-            # To prevent infinite loops during testing
-            counter += 1
 
 
     def clear(self) -> None:
@@ -349,22 +341,22 @@ if __name__ == "__main__":
     #         result &= not m.contains_key(str(key + 1))
     #     print(capacity, result, m.get_size(), m.get_capacity(), round(m.table_load(), 2))
 
-    # print("\nPDF - get example 1")
-    # print("-------------------")
-    # m = HashMap(31, hash_function_1)
-    # print(m.get('key'))
-    # m.put('key1', 10)
-    # print(m.get('key1'))
+    print("\nPDF - get example 1")
+    print("-------------------")
+    m = HashMap(31, hash_function_1)
+    print(m.get('key'))
+    m.put('key1', 10)
+    print(m.get('key1'))
 
-    # print("\nPDF - get example 2")
-    # print("-------------------")
-    # m = HashMap(151, hash_function_2)
-    # for i in range(200, 300, 7):
-    #     m.put(str(i), i * 10)
-    # print(m.get_size(), m.get_capacity())
-    # for i in range(200, 300, 21):
-    #     print(i, m.get(str(i)), m.get(str(i)) == i * 10)
-    #     print(i + 1, m.get(str(i + 1)), m.get(str(i + 1)) == (i + 1) * 10)
+    print("\nPDF - get example 2")
+    print("-------------------")
+    m = HashMap(151, hash_function_2)
+    for i in range(200, 300, 7):
+        m.put(str(i), i * 10)
+    print(m.get_size(), m.get_capacity())
+    for i in range(200, 300, 21):
+        print(i, m.get(str(i)), m.get(str(i)) == i * 10)
+        print(i + 1, m.get(str(i + 1)), m.get(str(i + 1)) == (i + 1) * 10)
 
     # print("\nPDF - contains_key example 1")
     # print("----------------------------")
