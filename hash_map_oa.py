@@ -117,7 +117,7 @@ class HashMap:
         """
         Returns the current Hash Table load.
         """
-        return self.get_size() / self.get_capacity()
+        return float(self.get_size() / self.get_capacity())
 
 
     def empty_buckets(self) -> int:
