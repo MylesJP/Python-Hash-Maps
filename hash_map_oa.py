@@ -165,6 +165,7 @@ class HashMap:
         Returns the value for the given key if it is in the Hash Table.
         """
         initialIndex = self._hash_function(key) % self.get_capacity()
+        counter = 0
         j = 0
         while counter <= self.get_capacity() and self._buckets[(initialIndex + j**2) % \
             self.get_capacity()] is not None and self._buckets[(initialIndex + j**2) % \
@@ -443,22 +444,22 @@ if __name__ == "__main__":
     # m.resize_table(12)
     # print(m.get_keys_and_values())
 
-    # print("\nPDF - __iter__(), __next__() example 1")
-    # print("---------------------")
-    # m = HashMap(10, hash_function_1)
-    # for i in range(5):
-    #     m.put(str(i), str(i * 10))
-    # print(m)
-    # for item in m:
-    #     print('K:', item.key, 'V:', item.value)
-
-    print("\nPDF - __iter__(), __next__() example 2")
+    print("\nPDF - __iter__(), __next__() example 1")
     print("---------------------")
-    m = HashMap(10, hash_function_2)
+    m = HashMap(10, hash_function_1)
     for i in range(5):
-        m.put(str(i), str(i * 24))
-    m.remove('0')
-    m.remove('4')
+        m.put(str(i), str(i * 10))
     print(m)
     for item in m:
         print('K:', item.key, 'V:', item.value)
+
+    # print("\nPDF - __iter__(), __next__() example 2")
+    # print("---------------------")
+    # m = HashMap(10, hash_function_2)
+    # for i in range(5):
+    #     m.put(str(i), str(i * 24))
+    # m.remove('0')
+    # m.remove('4')
+    # print(m)
+    # for item in m:
+    #     print('K:', item.key, 'V:', item.value)
