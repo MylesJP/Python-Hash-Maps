@@ -131,7 +131,7 @@ class HashMap:
         """
         TODO: Write this implementation
         """
-        if new_capacity == self.get_capacity() or new_capacity < 1:
+        if new_capacity < 1:
             return
         
         # If new_capacity isn't prime, adjust up to next prime
@@ -154,6 +154,7 @@ class HashMap:
             self._buckets.append(None)
         
         self._capacity = prime_capacity
+
         for item in range(tempArray.length()):
             self.put(tempArray[item].key, tempArray[item].value)
 
