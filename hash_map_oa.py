@@ -195,8 +195,8 @@ class HashMap:
             % self.get_capacity()] is not None:
             if self._buckets[(initialIndex + j**2) % self.get_capacity()].key == key:
                 self._buckets[(initialIndex + j**2) % self.get_capacity()].is_tombstone = True
-                self._buckets[(initialIndex + j**2) % self.get_capacity()].key = None
-                self._buckets[(initialIndex + j**2) % self.get_capacity()].value = None
+                # self._buckets[(initialIndex + j**2) % self.get_capacity()].key = None
+                # self._buckets[(initialIndex + j**2) % self.get_capacity()].value = None
                 self._size -= 1
                 return
             j += 1
