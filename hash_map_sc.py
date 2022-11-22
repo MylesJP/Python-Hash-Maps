@@ -90,8 +90,8 @@ class HashMap:
 
     def put(self, key: str, value: object) -> None:
         """
-        Updates the key:val pair in the HashMap, inserting a new entry if not
-        present. Also resizes the HashMap when load factor = 1.
+        Updates the key:val pair in the Hash Table, inserting a new entry if not
+        present. Also resizes the Hash Table when load factor = 1.
         """
         # Resize the HashTable if load >= 1
         if self.table_load() >= 1:

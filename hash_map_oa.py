@@ -91,9 +91,10 @@ class HashMap:
 
     def put(self, key: str, value: object) -> None:
         """
-        TODO: Write this implementation
+        Updates the key:val pair in the Hash Table, inserting a new entry if not
+        present. Also resizes the Hash Table when load factor = 1.
         """
-        # Resize the HashTable if load >= 0.2
+        # Resize the HashTable if load >= 0.5
         if self.table_load() >= 0.5:
             self.resize_table(self._next_prime(self._capacity*2))
         
@@ -106,7 +107,8 @@ class HashMap:
             j += 1
 
         # If overwriting, don't increment size
-        if self._buckets[(initialIndex + j**2) % self.get_capacity()] and self._buckets[(initialIndex + j**2) % self.get_capacity()].key == key:
+        if self._buckets[(initialIndex + j**2) % self.get_capacity()] and \
+            self._buckets[(initialIndex + j**2) % self.get_capacity()].key == key:
             self._buckets[(initialIndex + j**2) % self.get_capacity()] = HashEntry(key, value)
         else:
             self._buckets[(initialIndex + j**2) % self.get_capacity()] = HashEntry(key, value)
@@ -158,30 +160,49 @@ class HashMap:
 
     def get(self, key: str) -> object:
         """
-        TODO: Write this implementation
+        Returns the value for the given key if it is in the Hash Table.
         """
         initialIndex = self._hash_function(key) % self.get_capacity()
         counter = 0
         j = 0
-        while counter <= self.get_capacity() and self._buckets[(initialIndex + j**2) % self.get_capacity()] is not None:
+        while counter <= self.get_capacity() and self._buckets[(initialIndex + j**2) % \
+            self.get_capacity()] is not None:
             if self._buckets[(initialIndex + j**2) % self.get_capacity()].key == key:
                 return self._buckets[(initialIndex + j**2) % self.get_capacity()].value
             j += 1
             # To prevent infinite loops during testing
             counter += 1
 
+
     def contains_key(self, key: str) -> bool:
         """
-        TODO: Write this implementation
+        Returns True if the key is in the Hash Table, else, False.
         """
-        pass
+        if self.get(key):
+            return True
+        return False
+
 
     def remove(self, key: str) -> None:
         """
         TODO: Write this implementation
         """
         # Remember to set the TS value to True
-        pass
+        initialIndex = self._hash_function(key) % self.get_capacity()
+        counter = 0
+        j = 0
+        while counter <= self.get_capacity() and self._buckets[(initialIndex + j**2) \
+            % self.get_capacity()] is not None:
+            if self._buckets[(initialIndex + j**2) % self.get_capacity()].key == key:
+                self._buckets[(initialIndex + j**2) % self.get_capacity()].is_tombstone = True
+                self._buckets[(initialIndex + j**2) % self.get_capacity()].key = None
+                self._buckets[(initialIndex + j**2) % self.get_capacity()].value = None
+                self._size -= 1
+                return
+            j += 1
+            # To prevent infinite loops during testing
+            counter += 1
+
 
     def clear(self) -> None:
         """
@@ -315,29 +336,29 @@ if __name__ == "__main__":
     # m.put('key1', 10)
     # print(m.get('key1'))
 
-    print("\nPDF - get example 2")
-    print("-------------------")
-    m = HashMap(151, hash_function_2)
-    for i in range(200, 300, 7):
-        m.put(str(i), i * 10)
-    print(m.get_size(), m.get_capacity())
-    for i in range(200, 300, 21):
-        print(i, m.get(str(i)), m.get(str(i)) == i * 10)
-        print(i + 1, m.get(str(i + 1)), m.get(str(i + 1)) == (i + 1) * 10)
+    # print("\nPDF - get example 2")
+    # print("-------------------")
+    # m = HashMap(151, hash_function_2)
+    # for i in range(200, 300, 7):
+    #     m.put(str(i), i * 10)
+    # print(m.get_size(), m.get_capacity())
+    # for i in range(200, 300, 21):
+    #     print(i, m.get(str(i)), m.get(str(i)) == i * 10)
+    #     print(i + 1, m.get(str(i + 1)), m.get(str(i + 1)) == (i + 1) * 10)
 
-    # print("\nPDF - contains_key example 1")
-    # print("----------------------------")
-    # m = HashMap(11, hash_function_1)
-    # print(m.contains_key('key1'))
-    # m.put('key1', 10)
-    # m.put('key2', 20)
-    # m.put('key3', 30)
-    # print(m.contains_key('key1'))
-    # print(m.contains_key('key4'))
-    # print(m.contains_key('key2'))
-    # print(m.contains_key('key3'))
-    # m.remove('key3')
-    # print(m.contains_key('key3'))
+    print("\nPDF - contains_key example 1")
+    print("----------------------------")
+    m = HashMap(11, hash_function_1)
+    print(m.contains_key('key1'))
+    m.put('key1', 10)
+    m.put('key2', 20)
+    m.put('key3', 30)
+    print(m.contains_key('key1'))
+    print(m.contains_key('key4'))
+    print(m.contains_key('key2'))
+    print(m.contains_key('key3'))
+    m.remove('key3')
+    print(m.contains_key('key3'))
 
     # print("\nPDF - contains_key example 2")
     # print("----------------------------")
