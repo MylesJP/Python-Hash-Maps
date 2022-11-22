@@ -108,7 +108,6 @@ class HashMap:
         # If overwriting, don't increment size
         if self._buckets[(initialIndex + j**2) % self.get_capacity()] and self._buckets[(initialIndex + j**2) % self.get_capacity()].key == key:
             self._buckets[(initialIndex + j**2) % self.get_capacity()] = HashEntry(key, value)
-            print("overwrite")
         else:
             self._buckets[(initialIndex + j**2) % self.get_capacity()] = HashEntry(key, value)
             self._size += 1
