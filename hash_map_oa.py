@@ -166,7 +166,8 @@ class HashMap:
         counter = 0
         j = 0
         while counter <= self.get_capacity() and self._buckets[(initialIndex + j**2) % \
-            self.get_capacity()] is not None:
+            self.get_capacity()] is not None and self._buckets[(initialIndex + j**2) % \
+            self.get_capacity()].is_tombstone == False:
             if self._buckets[(initialIndex + j**2) % self.get_capacity()].key == key:
                 return self._buckets[(initialIndex + j**2) % self.get_capacity()].value
             j += 1
