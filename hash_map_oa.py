@@ -129,7 +129,7 @@ class HashMap:
 
     def resize_table(self, new_capacity: int) -> None:
         """
-        TODO: Write this implementation
+        Resizes the Hash Table to the next prime number.
         """
         if new_capacity < self.get_size():
             return
@@ -208,7 +208,7 @@ class HashMap:
 
     def clear(self) -> None:
         """
-        TODO: Write this implementation
+        Clears the contents of the Hash Table while preserving capacity.
         """
         for index in range(self._capacity):
             self._buckets[index] = None
@@ -219,7 +219,12 @@ class HashMap:
         """
         TODO: Write this implementation
         """
-        pass
+        outArray = DynamicArray()
+        for element in range(self.get_capacity()):
+            if self._buckets[element] and self._buckets[element].is_tombstone == False:
+                outArray.append((self._buckets[element].key, self._buckets[element].value))
+
+        return outArray
 
     def __iter__(self):
         """
@@ -306,31 +311,31 @@ if __name__ == "__main__":
     # m.resize_table(30)
     # print(m.get_size(), m.get_capacity(), m.get('key1'), m.contains_key('key1'))
 
-    print("\nPDF - resize example 2")
-    print("----------------------")
-    m = HashMap(79, hash_function_2)
-    keys = [i for i in range(1, 1000, 13)]
-    for key in keys:
-        m.put(str(key), key * 42)
-    print(m.get_size(), m.get_capacity())
+    # print("\nPDF - resize example 2")
+    # print("----------------------")
+    # m = HashMap(79, hash_function_2)
+    # keys = [i for i in range(1, 1000, 13)]
+    # for key in keys:
+    #     m.put(str(key), key * 42)
+    # print(m.get_size(), m.get_capacity())
 
-    for capacity in range(111, 1000, 117):
-        m.resize_table(capacity)
+    # for capacity in range(111, 1000, 117):
+    #     m.resize_table(capacity)
 
-        if m.table_load() > 0.5:
-            print(f"Check that the load factor is acceptable after the call to resize_table().\n"
-                  f"Your load factor is {round(m.table_load(), 2)} and should be less than or equal to 0.5")
+    #     if m.table_load() > 0.5:
+    #         print(f"Check that the load factor is acceptable after the call to resize_table().\n"
+    #               f"Your load factor is {round(m.table_load(), 2)} and should be less than or equal to 0.5")
 
-        m.put('some key', 'some value')
-        result = m.contains_key('some key')
-        m.remove('some key')
+    #     m.put('some key', 'some value')
+    #     result = m.contains_key('some key')
+    #     m.remove('some key')
 
-        for key in keys:
-            # all inserted keys must be present
-            result &= m.contains_key(str(key))
-            # NOT inserted keys must be absent
-            result &= not m.contains_key(str(key + 1))
-        print(capacity, result, m.get_size(), m.get_capacity(), round(m.table_load(), 2))
+    #     for key in keys:
+    #         # all inserted keys must be present
+    #         result &= m.contains_key(str(key))
+    #         # NOT inserted keys must be absent
+    #         result &= not m.contains_key(str(key + 1))
+    #     print(capacity, result, m.get_size(), m.get_capacity(), round(m.table_load(), 2))
 
     # print("\nPDF - get example 1")
     # print("-------------------")
@@ -412,20 +417,20 @@ if __name__ == "__main__":
     # m.clear()
     # print(m.get_size(), m.get_capacity())
 
-    # print("\nPDF - get_keys_and_values example 1")
-    # print("------------------------")
-    # m = HashMap(11, hash_function_2)
-    # for i in range(1, 6):
-    #     m.put(str(i), str(i * 10))
-    # print(m.get_keys_and_values())
+    print("\nPDF - get_keys_and_values example 1")
+    print("------------------------")
+    m = HashMap(11, hash_function_2)
+    for i in range(1, 6):
+        m.put(str(i), str(i * 10))
+    print(m.get_keys_and_values())
 
-    # m.resize_table(2)
-    # print(m.get_keys_and_values())
+    m.resize_table(2)
+    print(m.get_keys_and_values())
 
-    # m.put('20', '200')
-    # m.remove('1')
-    # m.resize_table(12)
-    # print(m.get_keys_and_values())
+    m.put('20', '200')
+    m.remove('1')
+    m.resize_table(12)
+    print(m.get_keys_and_values())
 
     # print("\nPDF - __iter__(), __next__() example 1")
     # print("---------------------")

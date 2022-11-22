@@ -139,7 +139,7 @@ class HashMap:
 
     def resize_table(self, new_capacity: int) -> None:
         """
-        Resizes the HashMap to the next prime number.
+        Resizes the Hash Table to the next prime number.
         """
         # If resize is 0 or the same as current capacity, do nothing
         if new_capacity < 1:
