@@ -131,8 +131,8 @@ class HashMap:
         """
         TODO: Write this implementation
         """
-        # if new_capacity < self.get_size():
-        #     return
+        if new_capacity < self.get_size():
+            return
         
         # If new_capacity isn't prime, adjust up to next prime
         if not self._is_prime(new_capacity):
