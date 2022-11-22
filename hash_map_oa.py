@@ -98,19 +98,17 @@ class HashMap:
             self.resize_table(self._next_prime(self._capacity*2))
         
         initialIndex = self._hash_function(key) % self._capacity
-        counter = 0
         hashIndex = initialIndex
         j = 0
 
         while self._buckets[(hashIndex + j**2) % self.get_capacity()] and \
-            self._buckets[hashIndex].key != key and counter < self.get_capacity():
+            self._buckets[(hashIndex + j**2) % self.get_capacity()].key != key:
             j += 1
-            # For avoiding infinite loops during debugging
-            counter += 1
 
         # If overwriting, don't increment size
-        if self._buckets[(initialIndex + j**2) % self.get_capacity()]:
+        if self._buckets[(initialIndex + j**2) % self.get_capacity()] and self._buckets[(initialIndex + j**2) % self.get_capacity()].key == key:
             self._buckets[(initialIndex + j**2) % self.get_capacity()] = HashEntry(key, value)
+            print("overwrite")
         else:
             self._buckets[(initialIndex + j**2) % self.get_capacity()] = HashEntry(key, value)
             self._size += 1
@@ -217,7 +215,8 @@ if __name__ == "__main__":
         m.put('str' + str(i), i * 100)
     print(m)
     m.put("str14", 1400)
-    m.put("str1", 1500000)
+    print(m)
+    m.put("str14", 1500)
     print(m)
 
     # print("\nPDF - put example 2")
