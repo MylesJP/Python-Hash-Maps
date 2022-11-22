@@ -142,7 +142,7 @@ class HashMap:
         Resizes the HashMap to the next prime number.
         """
         # If resize is 0 or the same as current capacity, do nothing
-        if new_capacity < 1 or new_capacity == self._capacity:
+        if new_capacity < 1:
             return
 
         # If new_capacity isn't prime, adjust up to next prime

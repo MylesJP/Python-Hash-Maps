@@ -95,13 +95,13 @@ class HashMap:
             self.resize_table(self._next_prime(self._capacity*2))
         
         initialIndex = self._hash_function(key) % self._capacity
-        hashIndex = initialIndex
         j = 0
 
-        while self._buckets[(hashIndex + j**2) % self.get_capacity()] and \
-            self._buckets[(hashIndex + j**2) % self.get_capacity()].key != key and \
-            self._buckets[(hashIndex + j**2) % self.get_capacity()].is_tombstone == False:
+        while self._buckets[(initialIndex + j**2) % self.get_capacity()] and \
+            self._buckets[(initialIndex + j**2) % self.get_capacity()].key != key and \
+            self._buckets[(initialIndex + j**2) % self.get_capacity()].is_tombstone == False:
             j += 1
+        # Loop stops with j at the correct increment
 
         # If overwriting, don't increment size
         if self._buckets[(initialIndex + j**2) % self.get_capacity()] and \
@@ -131,8 +131,8 @@ class HashMap:
         """
         TODO: Write this implementation
         """
-        if new_capacity < 1:
-            return
+        # if new_capacity < self.get_size():
+        #     return
         
         # If new_capacity isn't prime, adjust up to next prime
         if not self._is_prime(new_capacity):
