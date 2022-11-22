@@ -173,7 +173,6 @@ class HashMap:
             j += 1
 
 
-
     def contains_key(self, key: str) -> bool:
         """
         Returns True if the key is in the Hash Table, else, False.
@@ -189,18 +188,14 @@ class HashMap:
         Removes a Hash Table entry with the given key from the Hash Table.
         """
         initialIndex = self._hash_function(key) % self.get_capacity()
-        counter = 0
         j = 0
-        while counter <= self.get_capacity() and self._buckets[(initialIndex + j**2) \
-            % self.get_capacity()] is not None:
+        while self._buckets[(initialIndex + j**2) % self.get_capacity()] is not None:
             if self._buckets[(initialIndex + j**2) % self.get_capacity()].key == key and \
                 self._buckets[(initialIndex + j**2) % self.get_capacity()].is_tombstone == False:
                 self._buckets[(initialIndex + j**2) % self.get_capacity()].is_tombstone = True
                 self._size -= 1
                 break
             j += 1
-            # To prevent infinite loops during testing
-            counter += 1
 
 
     def clear(self) -> None:
