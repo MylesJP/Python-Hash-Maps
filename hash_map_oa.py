@@ -178,6 +178,7 @@ class HashMap:
         """
         Returns True if the key is in the Hash Table, else, False.
         """
+        # Should only check for is_tombstone
         if self.get(key):
             return True
         return False
@@ -187,7 +188,6 @@ class HashMap:
         """
         TODO: Write this implementation
         """
-        # Remember to set the TS value to True
         initialIndex = self._hash_function(key) % self.get_capacity()
         counter = 0
         j = 0
@@ -195,10 +195,8 @@ class HashMap:
             % self.get_capacity()] is not None:
             if self._buckets[(initialIndex + j**2) % self.get_capacity()].key == key:
                 self._buckets[(initialIndex + j**2) % self.get_capacity()].is_tombstone = True
-                # self._buckets[(initialIndex + j**2) % self.get_capacity()].key = None
-                # self._buckets[(initialIndex + j**2) % self.get_capacity()].value = None
                 self._size -= 1
-                return
+                break
             j += 1
             # To prevent infinite loops during testing
             counter += 1
