@@ -106,7 +106,7 @@ class HashMap:
         # If overwriting, don't increment size
         if self._buckets[(initialIndex + j**2) % self.get_capacity()] and \
             self._buckets[(initialIndex + j**2) % self.get_capacity()].key == key and \
-            self._buckets[(hashIndex + j**2) % self.get_capacity()].is_tombstone == False:
+            self._buckets[(initialIndex + j**2) % self.get_capacity()].is_tombstone == False:
                 self._buckets[(initialIndex + j**2) % self.get_capacity()] = HashEntry(key, value)
         else:
             self._buckets[(initialIndex + j**2) % self.get_capacity()] = HashEntry(key, value)
