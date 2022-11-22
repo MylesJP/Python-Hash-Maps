@@ -177,7 +177,6 @@ class HashMap:
         """
         Returns True if the key is in the Hash Table, else, False.
         """
-        # Should only check for is_tombstone
         if self.get(key):
             return True
         return False
