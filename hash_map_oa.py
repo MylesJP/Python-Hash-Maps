@@ -145,6 +145,7 @@ class HashMap:
         # Copy current entries into a temporary table
         tempArray = DynamicArray()
         for entry in range(self.get_capacity()):
+            # If the entry exists and is not a tombstone, add it to the tempArray
             if self._buckets[entry] and self._buckets[entry].is_tombstone == False:
                 tempArray.append(self._buckets[entry])
 
@@ -153,10 +154,12 @@ class HashMap:
         # Increase the size of the Hash Table to prime_capacity
         for _ in range(prime_capacity):
             self._buckets.append(None)
+        
 
         self._capacity = prime_capacity
         for item in range(tempArray.length()):
             self.put(tempArray[item].key, tempArray[item].value)
+        self._size = tempArray.length()
 
 
     def get(self, key: str) -> object:
@@ -188,7 +191,7 @@ class HashMap:
 
     def remove(self, key: str) -> None:
         """
-        TODO: Write this implementation
+        Removes a Hash Table entry with the given key from the Hash Table.
         """
         initialIndex = self._hash_function(key) % self.get_capacity()
         counter = 0
@@ -212,6 +215,7 @@ class HashMap:
         for index in range(self._capacity):
             self._buckets[index] = None
         self._size = 0
+
 
     def get_keys_and_values(self) -> DynamicArray:
         """
