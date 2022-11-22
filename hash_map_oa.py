@@ -194,7 +194,8 @@ class HashMap:
         j = 0
         while counter <= self.get_capacity() and self._buckets[(initialIndex + j**2) \
             % self.get_capacity()] is not None:
-            if self._buckets[(initialIndex + j**2) % self.get_capacity()].key == key:
+            if self._buckets[(initialIndex + j**2) % self.get_capacity()].key == key and \
+                self._buckets[(initialIndex + j**2) % self.get_capacity()].is_tombstone == False:
                 self._buckets[(initialIndex + j**2) % self.get_capacity()].is_tombstone = True
                 self._size -= 1
                 break
