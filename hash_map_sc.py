@@ -217,7 +217,7 @@ class HashMap:
 
 def find_mode(da: DynamicArray):
     """
-    TODO: Write this implementation
+    Returns a tuple of a Dynamic array with the modal values and their occurance.
     """
     map = HashMap(da.length(), hash_function_1)
     modeArray = DynamicArray()
